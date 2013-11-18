@@ -21,7 +21,8 @@ import org.hibernate.*;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projection;
-import org.hibernate.impl.CriteriaImpl;
+import org.hibernate.internal.CriteriaImpl;
+import org.hibernate.sql.JoinType;
 import org.hibernate.transform.ResultTransformer;
 
 /**
@@ -173,8 +174,18 @@ public abstract class AbstractCriteriaDecorator <DECORATOR extends Criteria> imp
     }
 
     @Override
+    public DECORATOR createAlias(String associationPath, String alias, JoinType joinType, Criterion withClause) throws HibernateException {
+        return decorate(criteria.createAlias(associationPath, alias, joinType, withClause));
+    }
+
+    @Override
     public DECORATOR createAlias(String associationPath, String alias) throws HibernateException {
         return decorate(criteria.createAlias(associationPath, alias));
+    }
+
+    @Override
+    public DECORATOR createAlias(String associationPath, String alias, JoinType joinType) throws HibernateException {
+        return decorate(criteria.createAlias(associationPath, alias, joinType));
     }
 
     @Override
@@ -188,8 +199,18 @@ public abstract class AbstractCriteriaDecorator <DECORATOR extends Criteria> imp
     }
 
     @Override
+    public DECORATOR createCriteria(String associationPath, String alias, JoinType joinType, Criterion withClause) throws HibernateException {
+        return decorate(criteria.createCriteria(associationPath, alias, joinType, withClause));
+    }
+
+    @Override
     public DECORATOR createCriteria(String associationPath, String alias) throws HibernateException {
         return decorate(criteria.createCriteria(associationPath, alias));
+    }
+
+    @Override
+    public DECORATOR createCriteria(String associationPath, String alias, JoinType joinType) throws HibernateException {
+        return decorate(criteria.createCriteria(associationPath, alias, joinType));
     }
 
     @Override
@@ -200,6 +221,11 @@ public abstract class AbstractCriteriaDecorator <DECORATOR extends Criteria> imp
     @Override
     public DECORATOR createCriteria(String associationPath) throws HibernateException {
         return decorate(criteria.createCriteria(associationPath));
+    }
+
+    @Override
+    public DECORATOR createCriteria(String associationPath, JoinType joinType) throws HibernateException {
+        return decorate(criteria.createCriteria(associationPath, joinType));
     }
 
     @Override

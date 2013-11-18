@@ -16,7 +16,7 @@
  */
 package cz.jirutka.commons.hibernate.criteria;
 
-import org.hibernate.impl.CriteriaImpl;
+import org.hibernate.internal.CriteriaImpl;
 
 /**
  * Interface of the {@linkplain Criteria} visitor.
